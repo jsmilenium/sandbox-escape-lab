@@ -1,0 +1,20 @@
+# run results and logs
+*.log
+result-*.txt
+outputs/
+results/
+*.jsonl
+
+# secrets and keys
+.env
+.env.*
+*.key
+*.pem
+*_rsa
+*_ed25519
+key_*
+
+# lab working folder (if pointed inside the repository)
+sbx-escape-lab/
+lab-dir/
+__pycache__/
