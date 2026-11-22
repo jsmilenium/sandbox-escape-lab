@@ -158,7 +158,7 @@ rm -rf "${LAB_DIR:-/var/tmp/sbx-escape-lab}"
 
 ## Check the repository before publishing
 
-`bash tools/secrets-gate.sh` scans the repository for credentials (API keys, cloud and GitHub tokens, private key blocks) and private IP addresses, and exits 1 if it finds any; it never prints the matched value. You can add a personal deny-list that is never committed: one case-insensitive regex per line in `~/.config/sandbox-escape-lab/denylist` (or the path in `GATE_DENYLIST`), for your user name, host names, home paths or anything else that must never be published. `bash tools/gate-test.sh` is the positive control: it plants a fake key, a private IP and a random deny-listed word, requires exit 1, removes the plant and requires exit 0.
+`bash tools/secrets-gate.sh` scans the repository for credentials (API keys, cloud and GitHub tokens, private key blocks) and private IP addresses, and exits 1 if it finds any; it never prints the matched value. You can add a personal deny-list that is never committed: one case-insensitive regex per line in `~/.config/sandbox-escape-lab/denylist` (or the path in `GATE_DENYLIST`), for your user name, host names, home paths or anything else that must never be published. `bash tools/gate-test.sh` is the positive control: it plants a fake key, a private IP and a random deny-listed word, requires exit 1, removes the plant and requires exit 0. It also plants a private IP in a git-ignored path and requires the gate to skip it, so a gate that falls back to scanning every file (the old root check failed on Windows Git Bash) fails the test.
 
 ## License
 

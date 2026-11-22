@@ -2,3 +2,4 @@ Secrets gate test
 1) with plant: exit=1 (expected 1); key=1 ip=1 deny-list=1 (expected 1 each)
 2) without plant: exit=0 (expected 0)
 3) planted values printed by the gate: no
+4) git-ignored plant skipped: plant ignored by git=yes, file list=git (expected yes, git; ip=1 above)

@@ -38,10 +38,14 @@ else
   echo "secrets-gate: no personal deny-list at $DENYLIST (only generic patterns)"
 fi
 
-if git rev-parse --is-inside-work-tree >/dev/null 2>&1 && [ "$(git rev-parse --show-toplevel)" = "$(pwd)" ]; then
+# Root check by --show-prefix (empty at the top level). Comparing --show-toplevel with pwd
+# fails on Windows Git Bash (D:/x vs /d/x) and silently scanned ignored files too.
+if git rev-parse --is-inside-work-tree >/dev/null 2>&1 && [ -z "$(git rev-parse --show-prefix 2>/dev/null)" ]; then
   FILES=$(git ls-files -co --exclude-standard)
+  echo "secrets-gate: file list = git (tracked + untracked, ignored files skipped)"
 else
   FILES=$(find . -type f -not -path './.git/*' | sed 's|^\./||')
+  echo "secrets-gate: file list = all files (not at a git repository root)"
 fi
 
 FINDINGS=0
